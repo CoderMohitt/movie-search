@@ -7,9 +7,19 @@
     <link rel="stylesheet" href="../dist/output.css">
 </head>
 <body>
-    <input type="text" id="ipt" class="border">
-    <button id="btn">Search</button>
-    <div id="main"></div>
+    <div class="p-10">
+        <input type="text" placeholder="enter a movie name..." id="ipt" class="border p-3">
+        <button id="btn" class="bg-blue-500 p-3 text-white border-black cursor-pointer">Search</button>
+    </div>
+
+    <div id="searchRes" class="px-10"></div>
+    <h1 class="p-10" id="loader">Loading...</h1>
+
+    <div id="not" class="p-10 hidden">
+        movie not found
+    </div>
+    <div id="main" class="flex gap-5 flex-wrap justify-center p-10">
+    </div>   
 
     <div id="music"></div>
 

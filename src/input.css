@@ -2,6 +2,14 @@
 
 @layer components {
     .poster {
-        @apply w-10 bg-pink-300
+        @apply border
+    }
+
+    .image {
+        @apply w-40
+    }
+
+    .title {
+        @apply w-40 p-2
     }
 }

@@ -1,18 +1,35 @@
 const main = document.getElementById("main")
 const ipt = document.getElementById("ipt")
 const btn = document.getElementById("btn")
+const loader = document.getElementById("loader")
+const searchRes = document.getElementById("searchRes")
+const not = document.getElementById("not")
 
 btn.addEventListener("click", () => {
     getData(ipt.value)
 })
 
 async function getData(query) {
+    loader.className = "p-10 block"
+    not.className = "hidden"
+
     main.innerHTML = ""
+
+    searchRes.innerHTML = ""
+    const name = document.createElement("div")
+    name.textContent = "showing results for " + query
+    searchRes.appendChild(name)
 
     const res = await fetch(`https://www.omdbapi.com/?apikey=6dfdc897&s=${query}`)
     const data = await res.json()
 
     const movies = data.Search
+
+    loader.className = "p-10 hidden"
+
+    if(!movies) {
+        not.className = "block p-10"
+    }
 
     movies.forEach(movie => createCard(movie))
 
@@ -20,29 +37,19 @@ async function getData(query) {
 
 function createCard(movie) {
     const card = document.createElement("div")
-    // card.className = "bg-red-500"
-    card.textContent = movie.Title
     const poster = document.createElement("img")
+    poster.classList.add("image")
+
+    const title = document.createElement("p")
+    title.classList.add("title")
+
     poster.src = movie.Poster
+    title.textContent = movie.Title
     card.appendChild(poster)
-    // card.classList.add("poster")
+    card.appendChild(title)
+    card.classList.add("poster")
 
     main.appendChild(card)
-}
+}   
 
-const a = 10
-const b = 20
-
-// console.log("value of a is", a, "value of b is", b)
-// console.log(`value of a is ${a} value of b is ${b}`)
-
-const music = document.getElementById("music")
-
-async function  getMusic() {
-    const res = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://api.freetouse.com/v3/music/tracks/all"))
-    const data = await res.json()
-
-    console.log(data)
-}
-
-getMusic()
+getData(ipt.value ? ipt.value : "batman") // "", "moviename"
